@@ -3,16 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusFlow | Produktivitas Interaktif</title>
-    <!-- Tailwind CSS -->
+    <title>FocusFlow | Interaktif</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- Global Styles --- */
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
@@ -29,7 +25,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- Glassmorphism Card --- */
         .glass-panel {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
@@ -44,7 +39,6 @@
             transform: translateY(-5px);
         }
 
-        /* --- Circular Progress Timer --- */
         .timer-circle {
             transform: rotate(-90deg);
             transform-origin: 50% 50%;
@@ -53,107 +47,65 @@
             transition: stroke-dashoffset 1s linear;
         }
 
-        /* --- Task List Animation --- */
-        .task-item {
-            transition: all 0.3s ease;
-        }
+        .task-item { transition: all 0.3s ease; }
         .task-item.completed {
             opacity: 0.6;
             text-decoration: line-through;
-            background: rgba(209, 250, 229, 0.5); /* Hijau pudar */
+            background: rgba(209, 250, 229, 0.5);
         }
         .task-item.removing {
             transform: translateX(100%);
             opacity: 0;
         }
 
-        /* --- Breathing Animation --- */
         .breathing-circle {
-            width: 150px;
-            height: 150px;
+            width: 150px; height: 150px;
             background: rgba(99, 102, 241, 0.2);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            margin: 0 auto;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; margin: 0 auto;
         }
         .breathing-core {
-            width: 100px;
-            height: 100px;
+            width: 100px; height: 100px;
             background: #6366f1;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: bold;
             box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
             transition: all 4s ease-in-out;
         }
         
-        /* Animasi Tarik/Hembus Napas */
-        .inhale .breathing-core {
-            transform: scale(1.4);
-            background: #818cf8;
-        }
-        .exhale .breathing-core {
-            transform: scale(1);
-            background: #6366f1;
-        }
+        .inhale .breathing-core { transform: scale(1.4); background: #818cf8; }
+        .exhale .breathing-core { transform: scale(1); background: #6366f1; }
         .text-guide {
-            position: absolute;
-            bottom: -20px;
-            width: 100%;
-            text-align: center;
-            font-weight: 600;
-            color: #4f46e5;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            position: absolute; bottom: -20px; width: 100%;
+            text-align: center; font-weight: 600; color: #4f46e5;
+            opacity: 0; transition: opacity 0.5s ease;
         }
-        .show-text {
-            opacity: 1;
-        }
+        .show-text { opacity: 1; }
 
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.1); 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(0,0,0,0.2); 
-            border-radius: 4px;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 4px; }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center p-4 md:p-8">
 
-    <!-- Header -->
     <header class="w-full max-w-5xl flex justify-between items-center mb-8 glass-panel px-6 py-4">
         <div class="flex items-center gap-3">
             <i class="fa-solid fa-layer-group text-2xl text-indigo-600"></i>
             <h1 class="text-2xl font-bold text-gray-800">FocusFlow</h1>
         </div>
-        <div class="text-sm font-medium text-gray-600 hidden md:block" id="current-date">
-            <!-- Date injected by JS -->
-        </div>
+        <div class="text-sm font-medium text-gray-600 hidden md:block" id="current-date"></div>
     </header>
 
-    <!-- Main Content Grid -->
     <main class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- Left Column: Timer & Breathing (Cols 5) -->
         <div class="lg:col-span-5 flex flex-col gap-6">
-            
-            <!-- Timer Card -->
             <div class="glass-panel p-6 flex flex-col items-center justify-center relative">
                 <h2 class="text-lg font-semibold text-gray-700 mb-4 self-start flex items-center gap-2">
                     <i class="fa-regular fa-clock text-indigo-500"></i> Timer Fokus
                 </h2>
 
-                <!-- SVG Circle Progress -->
                 <div class="relative mb-6">
                     <svg class="timer-circle" width="200" height="200">
                         <circle stroke="#e5e7eb" stroke-width="8" fill="transparent" r="88" cx="100" cy="100"/>
@@ -166,8 +118,7 @@
                     </div>
                 </div>
 
-                <!-- Timer Controls -->
-                <div class="flex gap-4 w-full justify-center">
+                <div class="flex gap-4 w-full justify-center mb-6">
                     <button id="btn-start" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-full font-medium transition shadow-lg flex items-center gap-2">
                         <i class="fa-solid fa-play"></i> Mulai
                     </button>
@@ -179,23 +130,36 @@
                     </button>
                 </div>
 
-                <!-- Timer Modes -->
-                <div class="flex gap-2 mt-6 bg-white/50 p-1 rounded-lg">
+                <div class="flex gap-2 bg-white/50 p-1 rounded-lg mb-4">
                     <button onclick="setMode('pomodoro')" class="px-4 py-1 text-xs font-bold rounded-md bg-indigo-100 text-indigo-700 transition" id="mode-pomodoro">Fokus</button>
                     <button onclick="setMode('short')" class="px-4 py-1 text-xs font-bold rounded-md text-gray-500 hover:bg-gray-100 transition" id="mode-short">Istirahat</button>
                 </div>
+
+                <div class="w-full pt-4 border-t border-gray-200/50">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3 text-center">Pengaturan Waktu (Menit)</p>
+                    <div class="flex gap-3 items-end">
+                        <div class="flex-1">
+                            <label class="text-[10px] text-gray-500 mb-1 block ml-1">Fokus</label>
+                            <input type="number" id="input-focus" value="30" min="1" class="w-full bg-white/80 border-none rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-400 outline-none">
+                        </div>
+                        <div class="flex-1">
+                            <label class="text-[10px] text-gray-500 mb-1 block ml-1">Break</label>
+                            <input type="number" id="input-break" value="5" min="1" class="w-full bg-white/80 border-none rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-teal-400 outline-none">
+                        </div>
+                        <button onclick="applyCustomTimes()" class="bg-gray-800 text-white p-2.5 rounded-lg hover:bg-black transition shadow-sm">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <!-- Breathing Exercise Card -->
             <div class="glass-panel p-6 flex flex-col items-center text-center">
                 <h2 class="text-lg font-semibold text-gray-700 mb-6 self-start flex items-center gap-2">
                     <i class="fa-solid fa-lungs text-teal-500"></i> Pernapasan
                 </h2>
                 <div class="relative py-4 mb-4">
                     <div class="breathing-circle" id="breath-container">
-                        <div class="breathing-core">
-                            <i class="fa-solid fa-om text-3xl"></i>
-                        </div>
+                        <div class="breathing-core"><i class="fa-solid fa-om text-3xl"></i></div>
                     </div>
                     <div class="text-guide" id="breath-text">Tarik Napas...</div>
                 </div>
@@ -205,68 +169,62 @@
             </div>
         </div>
 
-        <!-- Right Column: Task List (Cols 7) -->
         <div class="lg:col-span-7 glass-panel p-6 flex flex-col h-full">
             <h2 class="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
                 <i class="fa-solid fa-list-check text-pink-500"></i> Daftar Tugas
             </h2>
 
-            <!-- Input Area -->
-            <!-- UBAH DISINI: 'max-w-xs' agar pendek di HP, 'md:max-w-lg' agar panjang di Desktop -->
-            <div class="flex gap-2 mb-6 w-full max-w-xs md:max-w-lg">
+            <div class="flex gap-2 mb-6 w-full">
                 <input type="text" id="task-input" placeholder="Tugas hari ini?" 
-                    class="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-400 bg-white/60 backdrop-blur-sm min-w-0 text-sm md:text-base">
-                <button id="add-task-btn" class="bg-pink-500 hover:bg-pink-600 text-white px-4 md:px-6 rounded-xl font-bold transition shadow-md whitespace-nowrap">
+                    class="flex-1 px-4 py-3 rounded-xl border-none focus:ring-2 focus:ring-pink-400 bg-white/60 backdrop-blur-sm min-w-0">
+                <button id="add-task-btn" class="bg-pink-500 hover:bg-pink-600 text-white px-6 rounded-xl font-bold transition shadow-md">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
 
-            <!-- Stats -->
             <div class="flex justify-between items-center text-xs text-gray-500 mb-2 px-2">
                 <span id="task-count">0 Tugas</span>
                 <button onclick="clearCompleted()" class="hover:text-pink-600 transition underline">Hapus yang selesai</button>
             </div>
 
-            <!-- Task List Container -->
             <div id="task-list" class="flex-1 overflow-y-auto space-y-3 pr-2" style="max-height: 400px;">
-                <!-- Empty State -->
                 <div id="empty-state" class="text-center py-10 opacity-50">
                     <i class="fa-solid fa-clipboard-list text-4xl mb-3 text-gray-400"></i>
-                    <p>Belum ada tugas. Ayo semangat bro jangan malas malasan</p>
+                    <p>Belum ada tugas. Ayo semangat!</p>
                 </div>
             </div>
         </div>
-
     </main>
 
-    <!-- Footer -->
     <footer class="mt-8 text-white/80 text-sm font-light">
         <p>&copy; 2026 FocusFlow. By Raha</p>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        /* --- 1. DATE LOGIC --- */
+        /* --- 1. DATE --- */
         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         document.getElementById('current-date').textContent = new Date().toLocaleDateString('id-ID', dateOptions);
 
         /* --- 2. TIMER LOGIC --- */
         let timerInterval;
-        let timeLeft = 30 * 60; // seconds
-        let totalTime = 30 * 60;
         let isRunning = false;
+        let currentMode = 'pomodoro'; // 'pomodoro' atau 'short'
         
+        // Ambil nilai dari input kustom
+        const getCustomFocus = () => parseInt(document.getElementById('input-focus').value) || 30;
+        const getCustomBreak = () => parseInt(document.getElementById('input-break').value) || 5;
+
+        let timeLeft = getCustomFocus() * 60;
+        let totalTime = timeLeft;
+
         const timerDisplay = document.getElementById('timer-display');
         const progressRing = document.getElementById('progress-ring');
         const btnStart = document.getElementById('btn-start');
         const btnPause = document.getElementById('btn-pause');
-        const btnReset = document.getElementById('btn-reset');
         
-        // Setup Circle SVG
         const radius = progressRing.r.baseVal.value;
         const circumference = radius * 2 * Math.PI;
         progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
-        progressRing.style.strokeDashoffset = 0;
 
         function setProgress(percent) {
             const offset = circumference - (percent / 100) * circumference;
@@ -283,14 +241,11 @@
             if (timeLeft > 0) {
                 timeLeft--;
                 timerDisplay.textContent = formatTime(timeLeft);
-                const percent = (timeLeft / totalTime) * 100;
-                setProgress(percent);
+                setProgress((timeLeft / totalTime) * 100);
             } else {
                 clearInterval(timerInterval);
                 isRunning = false;
-                timerDisplay.textContent = "00:00";
-                // Play sound or alert
-                alert("Waktu Habis! Istirahat sejenak.");
+                alert("Waktu Habis!");
                 resetTimerState();
             }
         }
@@ -312,22 +267,22 @@
         function resetTimer() {
             clearInterval(timerInterval);
             isRunning = false;
-            // Reset to current mode time
-            const currentMode = document.getElementById('mode-pomodoro').classList.contains('bg-indigo-100') ? 30 : 5;
-            timeLeft = currentMode * 60;
-            totalTime = timeLeft;
-            timerDisplay.textContent = formatTime(timeLeft);
-            setProgress(100);
+            applyCustomTimes(); // Reset menggunakan waktu kustom terbaru
             resetTimerState();
         }
 
         function resetTimerState() {
             btnStart.classList.remove('hidden');
             btnPause.classList.add('hidden');
-            btnStart.innerHTML = '<i class="fa-solid fa-play"></i> Mulai';
         }
 
         function setMode(mode) {
+            currentMode = mode;
+            applyCustomTimes();
+        }
+
+        // FUNGSI UTAMA: Mengatur waktu sesuai input user
+        function applyCustomTimes() {
             clearInterval(timerInterval);
             isRunning = false;
             resetTimerState();
@@ -336,23 +291,22 @@
             const modeShort = document.getElementById('mode-short');
             const statusText = document.getElementById('timer-status');
 
-            if (mode === 'pomodoro') {
-                timeLeft = 30 * 60;
+            if (currentMode === 'pomodoro') {
+                timeLeft = getCustomFocus() * 60;
                 statusText.textContent = "Fokus";
                 statusText.className = "text-xs font-semibold text-indigo-500 mt-1 uppercase tracking-wider";
-                progressRing.style.stroke = "#6366f1"; // Indigo
-                
+                progressRing.style.stroke = "#6366f1";
                 modePomo.className = "px-4 py-1 text-xs font-bold rounded-md bg-indigo-100 text-indigo-700 transition";
                 modeShort.className = "px-4 py-1 text-xs font-bold rounded-md text-gray-500 hover:bg-gray-100 transition";
             } else {
-                timeLeft = 5 * 60;
+                timeLeft = getCustomBreak() * 60;
                 statusText.textContent = "Istirahat";
                 statusText.className = "text-xs font-semibold text-teal-500 mt-1 uppercase tracking-wider";
-                progressRing.style.stroke = "#14b8a6"; // Teal
-
+                progressRing.style.stroke = "#14b8a6";
                 modeShort.className = "px-4 py-1 text-xs font-bold rounded-md bg-teal-100 text-teal-700 transition";
                 modePomo.className = "px-4 py-1 text-xs font-bold rounded-md text-gray-500 hover:bg-gray-100 transition";
             }
+
             totalTime = timeLeft;
             timerDisplay.textContent = formatTime(timeLeft);
             setProgress(100);
@@ -360,33 +314,24 @@
 
         btnStart.addEventListener('click', toggleTimer);
         btnPause.addEventListener('click', toggleTimer);
-        btnReset.addEventListener('click', resetTimer);
+        document.getElementById('btn-reset').addEventListener('click', resetTimer);
 
-        /* --- 3. TODO LIST LOGIC --- */
-        const taskInput = document.getElementById('task-input');
-        const addTaskBtn = document.getElementById('add-task-btn');
-        const taskList = document.getElementById('task-list');
-        const emptyState = document.getElementById('empty-state');
-        const taskCount = document.getElementById('task-count');
-
+        /* --- 3. TODO LIST --- */
         let tasks = [];
+        const taskInput = document.getElementById('task-input');
+        const taskList = document.getElementById('task-list');
 
         function renderTasks() {
             taskList.innerHTML = '';
-            
             if (tasks.length === 0) {
-                taskList.appendChild(emptyState);
-                taskCount.textContent = "0 Tugas";
+                taskList.innerHTML = `<div id="empty-state" class="text-center py-10 opacity-50"><i class="fa-solid fa-clipboard-list text-4xl mb-3 text-gray-400"></i><p>Belum ada tugas. Ayo semangat!</p></div>`;
+                document.getElementById('task-count').textContent = "0 Tugas";
                 return;
             }
-
-            // Move empty state out if tasks exist
-            if(emptyState.parentNode === taskList) taskList.removeChild(emptyState);
 
             tasks.forEach((task, index) => {
                 const div = document.createElement('div');
                 div.className = `task-item flex items-center justify-between p-3 bg-white/80 rounded-lg shadow-sm ${task.completed ? 'completed' : ''}`;
-                
                 div.innerHTML = `
                     <div class="flex items-center gap-3 overflow-hidden">
                         <button onclick="toggleTask(${index})" class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition ${task.completed ? 'bg-pink-500 border-pink-500 text-white' : 'border-gray-300 text-transparent hover:border-pink-400'}">
@@ -394,105 +339,54 @@
                         </button>
                         <span class="truncate font-medium text-gray-700">${task.text}</span>
                     </div>
-                    <button onclick="deleteTask(${index})" class="text-gray-400 hover:text-red-500 transition px-2">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                `;
+                    <button onclick="deleteTask(${index})" class="text-gray-400 hover:text-red-500 px-2 transition"><i class="fa-solid fa-trash"></i></button>`;
                 taskList.appendChild(div);
             });
-
-            const activeCount = tasks.filter(t => !t.completed).length;
-            taskCount.textContent = `${activeCount} Tugas Tersisa`;
+            document.getElementById('task-count').textContent = `${tasks.filter(t => !t.completed).length} Tugas Tersisa`;
         }
 
         function addTask() {
-            const text = taskInput.value.trim();
-            if (text) {
-                tasks.push({ text: text, completed: false });
+            if (taskInput.value.trim()) {
+                tasks.push({ text: taskInput.value.trim(), completed: false });
                 taskInput.value = '';
                 renderTasks();
             }
         }
 
-        window.toggleTask = function(index) {
-            tasks[index].completed = !tasks[index].completed;
-            renderTasks();
-        }
+        window.toggleTask = (i) => { tasks[i].completed = !tasks[i].completed; renderTasks(); };
+        window.deleteTask = (i) => { tasks.splice(i, 1); renderTasks(); };
+        window.clearCompleted = () => { tasks = tasks.filter(t => !t.completed); renderTasks(); };
+        document.getElementById('add-task-btn').addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', (e) => e.key === 'Enter' && addTask());
 
-        window.deleteTask = function(index) {
-            const items = document.querySelectorAll('.task-item');
-            if(items[index]) {
-                items[index].classList.add('removing');
-                setTimeout(() => {
-                    tasks.splice(index, 1);
-                    renderTasks();
-                }, 300);
-            }
-        }
-
-        window.clearCompleted = function() {
-            tasks = tasks.filter(t => !t.completed);
-            renderTasks();
-        }
-
-        addTaskBtn.addEventListener('click', addTask);
-        taskInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') addTask();
-        });
-
-        /* --- 4. BREATHING LOGIC --- */
-        const btnBreath = document.getElementById('btn-breath');
-        const breathContainer = document.getElementById('breath-container');
-        const breathText = document.getElementById('breath-text');
-        let isBreathing = false;
-        let breathInterval;
+        /* --- 4. BREATHING --- */
+        let isBreathing = false, breathInterval;
+        const btnBreath = document.getElementById('btn-breath'), breathContainer = document.getElementById('breath-container'), breathText = document.getElementById('breath-text');
 
         btnBreath.addEventListener('click', () => {
             if (!isBreathing) {
-                startBreathing();
+                isBreathing = true;
+                btnBreath.textContent = "Berhenti";
+                btnBreath.className = "mt-4 text-sm bg-red-400 hover:bg-red-500 text-white px-5 py-2 rounded-lg transition";
+                const cycle = () => {
+                    breathText.className = "text-guide show-text";
+                    breathText.textContent = "Tarik Napas...";
+                    breathContainer.classList.add('inhale'); breathContainer.classList.remove('exhale');
+                    setTimeout(() => {
+                        if(isBreathing) {
+                            breathText.textContent = "Hembuskan...";
+                            breathContainer.classList.remove('inhale'); breathContainer.classList.add('exhale');
+                        }
+                    }, 4000);
+                };
+                cycle(); breathInterval = setInterval(cycle, 8000);
             } else {
-                stopBreathing();
+                isBreathing = false; clearInterval(breathInterval);
+                breathContainer.className = "breathing-circle"; breathText.className = "text-guide";
+                btnBreath.textContent = "Mulai Relaksasi";
+                btnBreath.className = "mt-4 text-sm bg-teal-500 hover:bg-teal-600 text-white px-5 py-2 rounded-lg transition";
             }
         });
-
-        function startBreathing() {
-            isBreathing = true;
-            btnBreath.textContent = "Berhenti";
-            btnBreath.classList.replace('bg-teal-500', 'bg-red-400');
-            btnBreath.classList.replace('hover:bg-teal-600', 'hover:bg-red-500');
-            
-            breathCycle();
-            breathInterval = setInterval(breathCycle, 8000); // 4s inhale, 4s exhale
-        }
-
-        function stopBreathing() {
-            isBreathing = false;
-            clearInterval(breathInterval);
-            breathContainer.className = "breathing-circle"; // Reset class
-            breathText.classList.remove('show-text');
-            btnBreath.textContent = "Mulai Relaksasi";
-            btnBreath.classList.replace('bg-red-400', 'bg-teal-500');
-            btnBreath.classList.replace('hover:bg-red-500', 'hover:bg-teal-600');
-        }
-
-        function breathCycle() {
-            breathText.classList.add('show-text');
-            
-            // Inhale
-            breathText.textContent = "Tarik Napas...";
-            breathContainer.classList.add('inhale');
-            breathContainer.classList.remove('exhale');
-
-            // Exhale after 4s
-            setTimeout(() => {
-                if(isBreathing) {
-                    breathText.textContent = "Hembuskan...";
-                    breathContainer.classList.remove('inhale');
-                    breathContainer.classList.add('exhale');
-                }
-            }, 4000);
-        }
-
     </script>
 </body>
 </html>
